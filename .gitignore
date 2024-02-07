@@ -2,3 +2,5 @@
 /cookies_snapshot
 /models
 /venv
+/actions/__pycache__
+actions/__pycache__/actions.cpython-310.pyc

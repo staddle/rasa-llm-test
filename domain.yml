@@ -77,41 +77,65 @@ slots:
     influence_conversation: true
     mappings:
       - type: custom
+        conditions:
+          - active_loop: anamnesis_form
+            requested_slot: biography_done
   sexuality_done:
     type: text
     influence_conversation: true
     mappings:
       - type: custom
+        conditions:
+          - active_loop: anamnesis_form
+            requested_slot: sexuality_done
   self_perception_done:
     type: text
     influence_conversation: true
     mappings:
       - type: custom
+        conditions:
+          - active_loop: anamnesis_form
+            requested_slot: self_perception_done
   psychiatric_history_done:
     type: text
     influence_conversation: true
     mappings:
       - type: custom
+        conditions:
+          - active_loop: anamnesis_form
+            requested_slot: psychiatric_history_done
   addiction_history_done:
     type: text
     influence_conversation: true
     mappings:
       - type: custom
+        conditions:
+          - active_loop: anamnesis_form
+            requested_slot: addiction_history_done
   psychosocial_done:
     type: text
     influence_conversation: true
     mappings:
       - type: custom
+        conditions:
+          - active_loop: anamnesis_form
+            requested_slot: psychosocial_done
   somatic_history_done:
     type: text
     influence_conversation: true
     mappings:
       - type: custom
+        conditions:
+          - active_loop: anamnesis_form
+            requested_slot: somatic_history_done
   forensic_history_done:
     type: text
     influence_conversation: true
     mappings:
       - type: custom
+        conditions:
+          - active_loop: anamnesis_form
+            requested_slot: forensic_history_done
 
 forms:
   anamnesis_form:

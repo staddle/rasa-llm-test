@@ -31,6 +31,7 @@ from typing import Dict, Text, List, Optional, Any
 from rasa_sdk import Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
+from rasa.core.actions.forms import FormAction
 
 from hugchat import hugchat
 from hugchat.login import Login
@@ -43,7 +44,7 @@ import os
 #else:
 #    raise Exception("chat.user and chat.password must be set in environment variables")
 
-sign = Login("", "") #fill in your email and password here
+sign = Login("hirofushikar@gmail.com", "") #fill in your email and password here
 cookie_path_dir = "./cookies_snapshot"
 try:
     cookies = sign.loadCookiesFromDir(cookie_path_dir) # This will detect if the JSON file exists, return cookies if it does and raise an Exception if it's not.
@@ -53,6 +54,8 @@ except Exception:
 
 chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
 chatbot.switch_llm(1)
+id = chatbot.new_conversation()
+chatbot.change_conversation(id) # switch once to the new conversation
 
 biography_question="Can you share with me the story of your life, starting from your earliest memories, focusing on your family situation, education, past and present relationships, and how these experiences have shaped your current lifestyle?"
 sexuality_question="How would you describe your journey of sexual development and experiences from childhood to now, and how do these experiences reflect in your current romantic relationships or perceptions of intimacy?"
@@ -67,22 +70,24 @@ def get_prompt(question, user_response):
     return "In the context of an initial therapy session (anamnesis), does the following response by a client satisfy the question '"+question+"'\nClient's response: '"+user_response+"'\n Just answer with a 'yes' or 'no' response. one word response only, do not reason or explain."
 
 def extract_slot(slot_name, question, tracker: Tracker):
+  current_slot_values = tracker.current_slot_values()
+  if(current_slot_values['requested_slot'] != slot_name):
+    return current_slot_values
   text_of_last_user_message = tracker.latest_message.get("text")
-  id = chatbot.new_conversation()
-  chatbot.change_conversation(id)
-  
+  new_slot_value = None
   for resp in chatbot.query(
     get_prompt(question, text_of_last_user_message),
     stream=True
   ):
     print(resp)
     if('yes' in resp['token'].lower()):
-      chatbot.delete_conversation(id) # dont delete for debugging
-      return {slot_name: text_of_last_user_message}
+      new_slot_value = text_of_last_user_message
+      break
     elif('no' in resp['token'].lower()):
-      chatbot.delete_conversation(id) # dont delete for debugging
-      return {slot_name: None}
-  return {slot_name: None}
+      break
+  #chatbot.delete_conversation(id) # dont delete for debugging
+  current_slot_values[slot_name] = new_slot_value
+  return current_slot_values
 
 class ValidateAnamnesisForm(FormValidationAction):
     def name(self) -> Text:
@@ -91,39 +96,39 @@ class ValidateAnamnesisForm(FormValidationAction):
     async def extract_biography_done(
         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-      extract_slot("biography_done", biography_question, tracker)
+      return extract_slot("biography_done", biography_question, tracker)
 
     async def extract_sexuality_done(
       self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-      extract_slot("sexuality_done", sexuality_question, tracker)
+      return extract_slot("sexuality_done", sexuality_question, tracker)
 
     async def extract_self_perception_done(
       self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-      extract_slot("self_perception_done", self_perception_question, tracker)
+      return extract_slot("self_perception_done", self_perception_question, tracker)
 
     async def extract_psychiatric_history_done(
       self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-      extract_slot("psychiatric_history_done", psychiatric_history_question, tracker)
+      return extract_slot("psychiatric_history_done", psychiatric_history_question, tracker)
 
     async def extract_addiction_history_done(
       self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-      extract_slot("addiction_history_done", addiction_history_question, tracker)
+      return extract_slot("addiction_history_done", addiction_history_question, tracker)
 
     async def extract_psychosocial_done(
       self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-      extract_slot("psychosocial_done", psychosocial_question, tracker)
+      return extract_slot("psychosocial_done", psychosocial_question, tracker)
       
     async def extract_somatic_history_done(
       self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-      extract_slot("somatic_history_done", somatic_history_question, tracker)
+      return extract_slot("somatic_history_done", somatic_history_question, tracker)
 
     async def extract_forensic_history_done(
       self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> Dict[Text, Any]:
-      extract_slot("forensic_history_done", forensic_history_question, tracker)
+      return extract_slot("forensic_history_done", forensic_history_question, tracker)
