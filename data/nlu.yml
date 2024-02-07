@@ -1,0 +1,187 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - moin
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good afternoon
+
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
+
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
+
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
+
+  - intent: start_anamnesis
+    examples: |
+      - start therapy
+      - start anamnesis
+      - conduct medical history
+      - Can you examine my medical history?
+      - start initial patient admission
+      - I want to be admitted to therapy
+      - I would like to start therapy
+      - I am looking for therapy
+      - find a therapist
+
+  - intent: biography
+    examples: |
+      - biography
+      - personal background
+      - life story
+      - about me
+      - parents
+      - sister
+      - brother
+      - moving out
+      - growing up
+      - only child
+      - school
+      - career
+      - university
+      - college
+      - high school
+
+  - intent: sexuality
+    examples: |
+      - sexuality
+      - sexual orientation
+      - sexual preferences
+      - sexual identity
+      - straight
+      - gay
+      - lesbian
+      - first time
+      - sex
+      - relationships
+      - relationship
+      - partner
+      - romantic
+      - romance
+      - intimacy
+
+  - intent: self_perception
+    examples: |
+      - self perception
+      - self image
+      - self concept
+      - how I see myself
+      - I feel like
+      - I see myself
+
+  - intent: psychiatric_history
+    examples: |
+      - psychiatric history
+      - mental health history
+      - past psychiatric conditions
+      - previous mental illnesses
+      - mental problems
+      - stress
+      - depression
+      - bipolar
+      - depressive disorder
+      - disorder
+      - i was diagnosed
+      - therapist
+
+  - intent: addiction_history
+    examples: |
+      - addiction history
+      - substance abuse history
+      - past addictions
+      - previous substance use disorders
+      - drugs
+      - drug abuse
+      - alcohol
+      - medication
+      - opioids
+      - pain killers
+      - nicotine
+      - cigarettes
+      - porn
+      - gambling
+      - sober
+      - I've struggled with
+
+  - intent: psychosocial
+    examples: |
+      - psychosocial
+      - social background
+      - social history
+      - family and social relationships
+      - mom has
+      - mom had
+      - dad has
+      - dad had
+      - brother has
+      - brother had
+      - sister has
+      - sister has
+      - runs in the family
+
+  - intent: somatic_history
+    examples: |
+      - somatic history
+      - medical history
+      - past illnesses
+      - previous medical conditions
+      - pills
+      - medication
+      - stress
+      - insomnia
+      - heart problems
+
+  - intent: forensic_history
+    examples: |
+      - forensic history
+      - legal history
+      - criminal record
+      - past legal issues
+      - crime
+      - police
+      - justice
+      - law

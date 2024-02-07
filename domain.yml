@@ -1,0 +1,134 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_greatoki
+  - mood_unhappy
+  - bot_challenge
+  - start_anamnesis
+  - biography
+  - sexuality
+  - self_perception
+  - psychiatric_history
+  - addiction_history
+  - psychosocial
+  - somatic_history
+  - forensic_history
+
+responses:
+  utter_greet:
+    - text: "Hey! How are you?"
+
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great, carry on!"
+
+  utter_goodbye:
+    - text: "Bye"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+
+  utter_submit_anamnesis:
+    - text: "Anamnesis successfully captured. View it in your account."
+
+  utter_start_anamnesis:
+    - text: "Ok. Let's start the anamnesis process."
+
+  utter_ask_anamnesis_form_biography_done:
+    - text: "Can you share with me the story of your life, starting from your earliest memories, focusing on your family situation, education, past and present relationships, and how these experiences have shaped your current lifestyle?"
+
+  utter_ask_anamnesis_form_sexuality_done:
+    - text: "How would you describe your journey of sexual development and experiences from childhood to now, and how do these experiences reflect in your current romantic relationships or perceptions of intimacy?"
+
+  utter_ask_anamnesis_form_self_perception_done:
+    - text: "When you reflect on who you are, how would you describe your self-image and the thoughts and feelings that shape your perception of yourself?"
+
+  utter_ask_anamnesis_form_psychiatric_history_done:
+    - text: "Can you walk me through your medical history, particularly focusing on any psychiatric diagnoses or treatments you've received, and how these experiences have impacted your life and wellbeing?"
+
+  utter_ask_anamnesis_form_addiction_history_done:
+    - text: "Let's discuss any past or present experiences with addiction, whether substance-related or not. How have these addictions interacted with your values, life choices, and overall wellbeing?"
+
+  utter_ask_anamnesis_form_psychosocial_done:
+    - text: "Can you tell me about your family's mental health history, including any known mental disorders or behaviors that might suggest a predisposition to certain conditions, and how this history has influenced your life and relationships?"
+
+  utter_ask_anamnesis_form_somatic_history_done:
+    - text: "I'd like to understand more about your physical health history. Can you discuss any significant illnesses or injuries you've experienced, particularly those that have had mental or emotional repercussions?"
+
+  utter_ask_anamnesis_form_forensic_history_done:
+    - text: "It's also important to talk about any encounters with the law or behaviors that might be connected to your mental health. Can you share any such experiences, and how you believe they relate to your overall mental and emotional state?"
+
+  utter_anamnesis_slot_values:
+    - text: "The recorded values were: \n Biography: {biography_done}\n Sexuality: {sexuality_done}\n Self-Perception: {self_perception_done}\n Psychiatric History: {psychiatric_history_done}\n Addiction History: {addiction_history_done}\n Psychosocial: {psychosocial_done}\n Somatic History: {somatic_history_done}\n Forensic History: {forensic_history_done}"
+
+slots:
+  biography_done:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  sexuality_done:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  self_perception_done:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  psychiatric_history_done:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  addiction_history_done:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  psychosocial_done:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  somatic_history_done:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  forensic_history_done:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+
+forms:
+  anamnesis_form:
+    required_slots:
+      - biography_done
+      - sexuality_done
+      - self_perception_done
+      - psychiatric_history_done
+      - addiction_history_done
+      - psychosocial_done
+      - somatic_history_done
+      - forensic_history_done
+#      - third_party_anamnesis_done
+
+actions:
+  - validate_anamnesis_form
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
